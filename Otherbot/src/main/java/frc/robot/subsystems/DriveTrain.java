@@ -25,10 +25,10 @@ public class DriveTrain extends SubsystemBase {
 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
-    leftFront = new SparkMax(4, MotorType.kBrushed);
-    leftRear = new SparkMax(3, MotorType.kBrushed);
-    rightFront = new SparkMax(2, MotorType.kBrushed);
-    rightRear = new SparkMax(1, MotorType.kBrushed);
+    leftFront = new SparkMax(4, MotorType.kBrushless);
+    leftRear = new SparkMax(3, MotorType.kBrushless);
+    rightFront = new SparkMax(2, MotorType.kBrushless);
+    rightRear = new SparkMax(1, MotorType.kBrushless);
 
     leftFrontConfig = new SparkMaxConfig();
     leftRearConfig = new SparkMaxConfig();
@@ -36,26 +36,26 @@ public class DriveTrain extends SubsystemBase {
     rightRearConfig = new SparkMaxConfig();
 
     leftFront.configure(leftFrontConfig.
-      inverted(true).
+      inverted(false).
       idleMode(IdleMode.kBrake), 
       ResetMode.kNoResetSafeParameters, 
       PersistMode.kPersistParameters);
 
     leftRear.configure(leftRearConfig.
-      inverted(true).
+      inverted(false).
       idleMode(IdleMode.kBrake).
       follow(4), 
       ResetMode.kNoResetSafeParameters, 
       PersistMode.kPersistParameters);
 
     rightFront.configure(rightFrontConfig.
-      inverted(false).
+      inverted(true).
       idleMode(IdleMode.kBrake), 
       ResetMode.kNoResetSafeParameters, 
       PersistMode.kPersistParameters);
 
     rightRear.configure(rightRearConfig.
-      inverted(false).
+      inverted(true).
       idleMode(IdleMode.kBrake).
       follow(2), 
       ResetMode.kNoResetSafeParameters, 
