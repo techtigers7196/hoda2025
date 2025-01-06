@@ -65,13 +65,13 @@ public class DriveTrain extends SubsystemBase {
 
 
  
-  public Command driveTank(DoubleSupplier left, DoubleSupplier right) {
+  public Command driveTank(Double left, Double right) {
     // Inline construction of command goes here.
     return run(
         () -> {
           
-          leftFront.set(TalonSRXControlMode.PercentOutput, left.getAsDouble());
-          rightFront.set(TalonSRXControlMode.PercentOutput, right.getAsDouble());
+          leftFront.set(left);
+          rightFront.set(right);
         });
   }
 
