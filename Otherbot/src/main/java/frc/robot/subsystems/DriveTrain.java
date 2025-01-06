@@ -11,26 +11,56 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.io.PrintWriter;
 import java.util.function.DoubleSupplier;
 
+import com.revrobotics.spark.SparkMax;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.spark.SparkBase.*;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 public class DriveTrain extends SubsystemBase {
-  TalonSRX leftFront, leftRear, rightFront, rightRear;
+  SparkMax leftFront, leftRear, rightFront, rightRear;
+  SparkMaxConfig leftFrontConfig, leftRearConfig, rightFrontConfig, rightRearConfig;
 
 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
-    leftFront = new TalonSRX(4);
-    leftRear = new TalonSRX(3);
-    rightFront = new TalonSRX(1);
-    rightRear = new TalonSRX(2);
+    leftFront = new SparkMax(4, MotorType.kBrushed);
+    leftRear = new SparkMax(3, MotorType.kBrushed);
+    rightFront = new SparkMax(2, MotorType.kBrushed);
+    rightRear = new SparkMax(1, MotorType.kBrushed);
 
+    leftFrontConfig = new SparkMaxConfig();
+    leftRearConfig = new SparkMaxConfig();
+    rightFrontConfig = new SparkMaxConfig();
+    rightRearConfig = new SparkMaxConfig();
 
-    leftFront.setInverted(true);
-    leftRear.setInverted(true);
+    leftFront.configure(leftFrontConfig.
+      inverted(true).
+      idleMode(IdleMode.kBrake), 
+      ResetMode.kNoResetSafeParameters, 
+      PersistMode.kPersistParameters);
 
-    leftRear.follow(leftFront);
-    rightRear.follow(rightFront);
+    leftRear.configure(leftRearConfig.
+      inverted(true).
+      idleMode(IdleMode.kBrake).
+      follow(4), 
+      ResetMode.kNoResetSafeParameters, 
+      PersistMode.kPersistParameters);
+
+    rightFront.configure(rightFrontConfig.
+      inverted(false).
+      idleMode(IdleMode.kBrake), 
+      ResetMode.kNoResetSafeParameters, 
+      PersistMode.kPersistParameters);
+
+    rightRear.configure(rightRearConfig.
+      inverted(false).
+      idleMode(IdleMode.kBrake).
+      follow(2), 
+      ResetMode.kNoResetSafeParameters, 
+      PersistMode.kPersistParameters);
+
   }
 
 
