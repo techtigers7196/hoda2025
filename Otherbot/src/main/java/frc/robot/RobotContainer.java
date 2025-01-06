@@ -24,6 +24,7 @@ public class RobotContainer {
   private final Arm m_arm = new Arm();
   private final AlgaePole m_algaepole = new AlgaePole();
   private final Intake m_intake = new Intake();
+  private final Climber m_climber = new Climber();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -101,6 +102,20 @@ public class RobotContainer {
      m_driverController.b()
      .and(m_driverController.a().negate())
      .onTrue(m_intake.moveIntake(-15.0));
+
+     // *** Climber bindings ***
+     // Default behaviour (do nothing)
+      m_climber.setDefaultCommand(m_climber.moveClimber(0.0));
+
+      // Disengage climber with back button
+      m_driverController.back()
+        .and(m_driverController.start().negate())
+        .onTrue(m_climber.moveClimber(15.0));
+
+      // Engage climber with start buttom
+      m_driverController.start()
+      .and(m_driverController.back().negate())
+      .onTrue(m_climber.moveClimber(-15.0));
 
   }
 
