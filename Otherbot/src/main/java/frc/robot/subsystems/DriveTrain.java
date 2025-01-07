@@ -36,26 +36,26 @@ public class DriveTrain extends SubsystemBase {
     rightRearConfig = new SparkMaxConfig();
 
     leftFront.configure(leftFrontConfig.
-      inverted(false).
+      inverted(true).
       idleMode(IdleMode.kBrake), 
       ResetMode.kNoResetSafeParameters, 
       PersistMode.kPersistParameters);
 
     leftRear.configure(leftRearConfig.
       idleMode(IdleMode.kBrake).
-      follow(4), 
+      follow(4),
       ResetMode.kNoResetSafeParameters, 
       PersistMode.kPersistParameters);
 
     rightFront.configure(rightFrontConfig.
-      inverted(true).
+      inverted(false).
       idleMode(IdleMode.kBrake), 
       ResetMode.kNoResetSafeParameters, 
       PersistMode.kPersistParameters);
 
     rightRear.configure(rightRearConfig.
       idleMode(IdleMode.kBrake).
-      follow(2), 
+      follow(2),
       ResetMode.kNoResetSafeParameters, 
       PersistMode.kPersistParameters);
 
