@@ -4,26 +4,27 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants.DriveConstants;
-import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
   // Left
-  private final PWMTalonSRX m_left1 = new PWMTalonSRX(DriveConstants.kLeftMotor1Port);
-  private final PWMTalonSRX m_left2 = new PWMTalonSRX(DriveConstants.kLeftMotor2Port);
+  private final WPI_TalonSRX m_left1 = new WPI_TalonSRX(DriveConstants.kLeftMotor1Port);
+  private final WPI_TalonSRX m_left2 = new WPI_TalonSRX(DriveConstants.kLeftMotor2Port);
 
   // Right
-  private final PWMTalonSRX m_right1 = new PWMTalonSRX(DriveConstants.kRightMotor1Port);
-  private final PWMTalonSRX m_right2 = new PWMTalonSRX(DriveConstants.kRightMotor2Port);
+  private final WPI_TalonSRX m_right1 = new WPI_TalonSRX(DriveConstants.kRightMotor1Port);
+  private final WPI_TalonSRX m_right2 = new WPI_TalonSRX(DriveConstants.kRightMotor2Port);
 
   // Define drive by leaders of motor groups
   private final DifferentialDrive m_drive =
-      new DifferentialDrive(m_left1::set, m_right1::set);
+      new DifferentialDrive(m_left1, m_right1);
 
   // Left encoder
   private final Encoder m_leftEncoder =
@@ -43,8 +44,10 @@ public class DriveSubsystem extends SubsystemBase {
     SendableRegistry.addChild(m_drive, m_left1);
     SendableRegistry.addChild(m_drive, m_right1);
 
-    m_left1.addFollower(m_left2);
-    m_right1.addFollower(m_right2);
+    m_left2.follow(m_left1);
+    m_right2.follow(m_right1);
+    // m_left1.addFollower(m_left2);
+    // m_right1.addFollower(m_right2);
 
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's

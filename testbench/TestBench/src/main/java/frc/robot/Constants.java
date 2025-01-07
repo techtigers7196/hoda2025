@@ -15,6 +15,7 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kOperatorControllerPort = 1;
   }
 
   public static class DriveConstants {
@@ -32,5 +33,53 @@ public final class Constants {
     public static final boolean kRightEncoderReversed = true;
 
     public static final double kEncoderDistancePerPulse = 0.0;  // FIXME
+  }
+
+  public static class LiftConstants {
+    // For safety, needs to work, implemented in subsystems' commands
+    public static final double kPctLimit = 1.0;
+
+    public static final int kMotorAPort = 7;
+    public static final int kMotorBPort = 8;
+    public static final int kEncoderPwmPort = 1;
+    public static final int kHallDownDioPort = 0;
+
+    public static final double Kp = 0.0;  //FIXME
+    public static final double Kd = 0.0;
+    public static final double Ki = 0.0;
+    public static final double kProfileMaxVel = 0.0;
+    public static final double kProfileMaxAcc = 0.0;
+
+    public static final double kFf= 0.0;  // For gravity comp.
+  }
+
+  public static class LiftState {
+    public static final double kHome = 0.0;
+    public static final double kStow = 0.0;
+    public static final double kAlgIntake = 0.0;  //FIXME
+  }
+
+  public static class ArmConstants {
+    // For safety, needs to work, implemented in subsystems' commands
+    public static final double kPctLimit = 1.0;
+    
+    public static final int kMotorAPort = 7;
+    public static final int kEncoderCanId = 13;
+    
+    public static final double Kp = 0.0;  //FIXME
+    public static final double Kd = 0.0;
+    public static final double Ki = 0.0;
+    public static final double kProfileMaxVel = 0.0;
+    public static final double kProfileMaxAcc = 0.0;
+  }
+
+  public static class ArmState {
+    public static final double kHome = 0.0;
+    public static final double kStow = 0.0;
+    public static final double kAlgIntake = 0.0;  //FIXME
+  }   
+
+  public static class ControlSystem {
+    public static final double kT = 0.01;  // Control system period (0.01 = 100Hz)
   }
 }

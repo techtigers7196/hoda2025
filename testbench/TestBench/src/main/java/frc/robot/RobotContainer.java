@@ -8,7 +8,8 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.LiftSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -17,10 +18,15 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_drive = new DriveSubsystem();
+  private final ArmSubsystem m_arm = new ArmSubsystem();
+  private final LiftSubsystem m_lift = new LiftSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+    new CommandXboxController(OperatorConstants.kDriverControllerPort);
+
+  private final CommandXboxController m_operatorController =
+    new CommandXboxController(OperatorConstants.kOperatorControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -30,9 +36,14 @@ public class RobotContainer {
     // Default commands
     m_drive.setDefaultCommand(
       Commands.run(
-        () ->
+        () -> {
           m_drive.arcadeDrive(
-            -m_driverController.getLeftY(), -m_driverController.getRightX())
+            -m_driverController.getLeftY(), -m_driverController.getRightX());
+
+          m_lift.movePct(-m_operatorController.getLeftY(), true);
+
+          m_arm.movePct(-m_operatorController.getRightY());
+        }
       )
     );
   }
