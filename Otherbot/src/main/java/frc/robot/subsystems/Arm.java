@@ -51,25 +51,17 @@ public class Arm extends SubsystemBase {
       PersistMode.kPersistParameters);
 
     encoder = new DutyCycleEncoder(0);
-    armP = new PIDController(15, 0, 0);
+    armP = new PIDController(17.5, 0, 0.8);
 
     // Set arm limit / position range
-    armFrontLimit = 0.4079;
-    armRearLimit = 0.05855;
+    armFrontLimit = 0.422;
+    armRearLimit = 0.05;
 
     // Set velocity % limit
-    armVelocityLimit = 0.50;
+    armVelocityLimit = 0.80;
 
   }
 
-  public Command moveArm(Double velocity) {
-    // Inline construction of command goes here.
-    return run(
-        () -> {
-          
-          armMotor1.set(velocity);
-        });
-  }
 
   public Command moveArmToPosition(Double position) {
     return run(
@@ -103,6 +95,21 @@ public class Arm extends SubsystemBase {
 
         });
   }
+
+  // public Command moveArm(Double factor) {
+  //   // Inline construction of command goes here.
+  //   return run(
+  //       () -> {
+          
+  //         Double curr = encoder.get();
+
+  //         Double targ = curr + factor;
+
+  //         moveArmToPosition(targ);
+
+          
+  //       });
+  // }
 
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
