@@ -37,8 +37,7 @@ public class Arm extends SubsystemBase {
       PersistMode.kPersistParameters);
 
     armMotor2.configure(armMotor2Config.
-      inverted(false).
-      follow(armMotor1).
+      follow(armMotor1, true).
       idleMode(IdleMode.kBrake), 
       ResetMode.kNoResetSafeParameters, 
       PersistMode.kPersistParameters);
