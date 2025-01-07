@@ -42,7 +42,6 @@ public class DriveTrain extends SubsystemBase {
       PersistMode.kPersistParameters);
 
     leftRear.configure(leftRearConfig.
-      inverted(false).
       idleMode(IdleMode.kBrake).
       follow(4), 
       ResetMode.kNoResetSafeParameters, 
@@ -55,7 +54,6 @@ public class DriveTrain extends SubsystemBase {
       PersistMode.kPersistParameters);
 
     rightRear.configure(rightRearConfig.
-      inverted(true).
       idleMode(IdleMode.kBrake).
       follow(2), 
       ResetMode.kNoResetSafeParameters, 

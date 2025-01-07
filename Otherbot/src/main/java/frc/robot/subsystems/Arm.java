@@ -24,8 +24,8 @@ public class Arm extends SubsystemBase {
 
   /** Creates a new Arm. */
   public Arm() {
-    armMotor1 = new SparkMax(5, MotorType.kBrushed);
     armMotor1 = new SparkMax(6, MotorType.kBrushed);
+    armMotor2 = new SparkMax(7, MotorType.kBrushed);
 
     armMotor1Config = new SparkMaxConfig();
     armMotor2Config = new SparkMaxConfig();
@@ -38,7 +38,7 @@ public class Arm extends SubsystemBase {
 
     armMotor2.configure(armMotor2Config.
       inverted(false).
-      follow(5).
+      follow(armMotor1).
       idleMode(IdleMode.kBrake), 
       ResetMode.kNoResetSafeParameters, 
       PersistMode.kPersistParameters);
@@ -49,6 +49,8 @@ public class Arm extends SubsystemBase {
     // Inline construction of command goes here.
     return run(
         () -> {
+
+          System.out.println(velocity);
           
           armMotor1.set(velocity);
         });
