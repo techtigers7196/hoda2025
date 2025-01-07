@@ -19,7 +19,7 @@ import frc.robot.util.UqUtil;
 import frc.robot.Constants.ControlSystem;
 
 public class LiftSubsystem extends SubsystemBase {
-  private final WPI_VictorSPX m_lift_a = new WPI_VictorSPX(LiftConstants.kMotorAPort);
+  private final WPI_VictorSPX m_lift_a = new WPI_VictorSPX(LiftConstants.kMotorCanId);
   // if you need a new motor just make it follow m_lift_a
   private final DutyCycleEncoder m_enc = new DutyCycleEncoder(LiftConstants.kEncoderPwmPort);
   private double enc_pos;

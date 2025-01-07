@@ -39,8 +39,7 @@ public final class Constants {
     // For safety, needs to work, implemented in subsystems' commands
     public static final double kPctLimit = 0.2;
 
-    public static final int kMotorAPort = 7;
-    public static final int kMotorBPort = 8;
+    public static final int kMotorCanId = 7;
     public static final int kEncoderPwmPort = 1;
     public static final int kHallDownDioPort = 0;
 
@@ -82,6 +81,13 @@ public final class Constants {
     public static final double kAlgIntake = 0.0;  //FIXME
   }   
 
+  public static class ClimbConstants {
+    // For safety, needs to work, implemented in subsystems' commands
+    public static final double kPctLimit = 1.0;
+
+    public static final int kMotorCanId = 8;
+  }
+  
   public static class ControlSystem {
     public static final double kT = 0.01;  // Control system period (0.01 = 100Hz)
   }
