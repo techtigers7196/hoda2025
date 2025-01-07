@@ -26,8 +26,8 @@ public final class Constants {
     public static final int kRightMotor2Port = 2;
 
     // Encoders
-    public static final int[] kLeftEncoderPorts = new int[] {0, 1};
-    public static final boolean kLeftEncoderReversed = false;
+    public static final int kLeftEncoderCanId = 11;
+    public static final int kRightEncoderCanId = 12;
 
     public static final int[] kRightEncoderPorts = new int[] {2, 3};
     public static final boolean kRightEncoderReversed = true;
@@ -66,7 +66,7 @@ public final class Constants {
 
     public static final int kAlgaeCanId = 5;
     public static final int kCoralCanId = 6;
-    public static final int kArmACanId = 7;
+    public static final int kArmACanId = 9;
     
     public static final int kEncoderCanId = 13;
     

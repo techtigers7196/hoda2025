@@ -53,24 +53,19 @@ public class LiftSubsystem extends SubsystemBase {
    * @param power -1.0 to 1.0
    * @return
    */
-  public Command movePct(double power, boolean includeFeedforward) {
-    return run(
-      () -> {
-        double output_power = UqUtil.clamp(power, LiftConstants.kPctLimit);
+  public void movePct(double power, boolean includeFeedforward) {
+    double output_power = power;
         
-        if (!m_hes_l_dn.get() && output_power < 0.0) {
-          // If bottom limit reached and power is driving lift down
-          m_lift_a.set(ControlMode.PercentOutput, 0.0);
-          
-        } else {
-          // we gucci
-          output_power = power + (includeFeedforward ? LiftConstants.kFf : 0.0);
-          // i knowingly clamp the power before adding the feedforward so we can do bringup sensibly
-          m_lift_a.set(ControlMode.PercentOutput, output_power);
-        }
-        
-      }
-    );
+    if (!m_hes_l_dn.get() && output_power < 0.0) {
+      // If bottom limit reached and power is driving lift down
+      m_lift_a.set(ControlMode.PercentOutput, 0.0);
+      
+    } else {
+      // we gucci
+      output_power = power + (includeFeedforward ? LiftConstants.kFf : 0.0);
+      // i knowingly clamp the power before adding the feedforward so we can do bringup sensibly
+      m_lift_a.set(ControlMode.PercentOutput, output_power);
+    }
   }
 
   /**
