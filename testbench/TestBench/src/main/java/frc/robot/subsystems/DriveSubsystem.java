@@ -11,6 +11,7 @@ import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants.DriveConstants;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -40,6 +41,8 @@ public class DriveSubsystem extends SubsystemBase {
           DriveConstants.kRightEncoderPorts[1],
           DriveConstants.kRightEncoderReversed);
 
+  private boolean forwardPhase = true;
+
   public DriveSubsystem() {
     SendableRegistry.addChild(m_drive, m_left1);
     SendableRegistry.addChild(m_drive, m_right1);
@@ -66,6 +69,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @param rot the commanded rotation
    */
   public void arcadeDrive(double fwd, double rot) {
+    fwd = (this.forwardPhase ? fwd : -fwd);  // Reverse front direction
     m_drive.arcadeDrive(fwd, rot);
   }
 
@@ -91,6 +95,22 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public void setMaxOutput(double maxOutput) {
     m_drive.setMaxOutput(maxOutput);
+  }
+
+  public Command toggleForwardDirection() {
+    return runOnce(
+      () -> {
+        forwardPhase = !forwardPhase;
+      }
+    );    
+  }
+
+  /**
+   * 
+   * @return true if going forward, false if reversed
+   */
+  public boolean getForwardDirection() {
+    return forwardPhase;
   }
 
   @Override

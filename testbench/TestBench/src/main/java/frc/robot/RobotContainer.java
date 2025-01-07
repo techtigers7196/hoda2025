@@ -62,6 +62,14 @@ public class RobotContainer {
     //     .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
+    m_driverController.leftStick().toggleOnTrue(m_drive.toggleForwardDirection());
+    // TODO reverse intake / outtake depending on drive direction
+    
+    m_driverController.leftBumper().whileTrue(m_arm.moveCoral(0.6));
+    m_driverController.leftTrigger().whileTrue(m_arm.moveCoral(-0.6));
+    m_driverController.rightBumper().whileTrue(m_arm.moveAlgae(0.6));
+    m_driverController.rightTrigger().whileTrue(m_arm.moveAlgae(-1.0));
   }
 
   /**

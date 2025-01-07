@@ -37,7 +37,7 @@ public final class Constants {
 
   public static class LiftConstants {
     // For safety, needs to work, implemented in subsystems' commands
-    public static final double kPctLimit = 1.0;
+    public static final double kPctLimit = 0.2;
 
     public static final int kMotorAPort = 7;
     public static final int kMotorBPort = 8;
@@ -61,9 +61,12 @@ public final class Constants {
 
   public static class ArmConstants {
     // For safety, needs to work, implemented in subsystems' commands
-    public static final double kPctLimit = 1.0;
+    public static final double kPctLimit = 0.2;
+
+    public static final int kAlgaeCanId = 5;
+    public static final int kCoralCanId = 6;
+    public static final int kArmACanId = 7;
     
-    public static final int kMotorAPort = 7;
     public static final int kEncoderCanId = 13;
     
     public static final double Kp = 0.0;  //FIXME
