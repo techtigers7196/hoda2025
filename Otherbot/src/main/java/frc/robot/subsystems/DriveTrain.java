@@ -63,13 +63,13 @@ public class DriveTrain extends SubsystemBase {
 
 
  
-  public Command driveTank(Double left, Double right) {
+  public Command driveTank(DoubleSupplier left, DoubleSupplier right) {
     // Inline construction of command goes here.
     return run(
         () -> {
           
-          leftFront.set(left);
-          rightFront.set(right);
+          leftFront.set(left.getAsDouble());
+          rightFront.set(right.getAsDouble());
         });
   }
 
