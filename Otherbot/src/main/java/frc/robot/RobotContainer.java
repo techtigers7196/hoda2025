@@ -31,12 +31,12 @@ public class RobotContainer {
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   // Define Arm Position Constants
-  Double positionIntakeCoral      = 0.4079;
-  Double positionIntakeAlgae      = 0.338;
-  Double positionClimbStart       = 0.233;
+  Double positionIntakeCoral      = 0.422;
   Double positionClimbEnd         = 0.368;
+  Double positionIntakeAlgae      = 0.348;
   Double positionRemoveAlgaeLow   = 0.3083;
-  Double positionRemoveAlgaeHigh  = 0.05855;
+  Double positionClimbStart       = 0.233;
+  Double positionRemoveAlgaeHigh  = 0.1;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -98,6 +98,7 @@ public class RobotContainer {
 
 
     // // *** Algae Pole bindings ***
+
     // // Default behaviour (do nothing)
     // m_algaepole.setDefaultCommand(m_algaepole.moveAlgaePole(0.0));
 
@@ -132,12 +133,12 @@ public class RobotContainer {
       // Disengage climber with back button
       m_driverController.leftBumper()
         .and(m_driverController.leftTrigger().negate())
-        .whileTrue(m_climber.moveClimber(0.3));
+        .whileTrue(m_climber.moveClimber(0.5));
 
       // Engage climber with start buttom
       m_driverController.leftTrigger()
         .and(m_driverController.leftBumper().negate())
-        .whileTrue(m_climber.moveClimber(-0.3));
+        .whileTrue(m_climber.moveClimber(-0.5));
 
   }
 
@@ -148,6 +149,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_drive);
+    return Autos.autoSideLeft(m_drive, m_arm, m_intake);
   }
 }
