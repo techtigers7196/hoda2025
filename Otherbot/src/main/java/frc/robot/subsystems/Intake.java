@@ -38,7 +38,6 @@ public class Intake extends SubsystemBase {
       PersistMode.kPersistParameters);
 
     intakeMotor2.configure(intakeMotor2Config.
-      inverted(true).
       idleMode(IdleMode.kBrake).
       follow(8), 
       ResetMode.kNoResetSafeParameters, 
