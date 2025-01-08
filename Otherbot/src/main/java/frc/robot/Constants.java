@@ -15,5 +15,14 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+
+      // Define Arm Position Constants
+      public static Double positionIntakeCoral      = 0.422;
+      public static Double positionClimbEnd         = 0.368;
+      public static Double positionIntakeAlgae      = 0.348;
+      public static Double positionRemoveAlgaeLow   = 0.3083;
+      public static Double positionClimbStart       = 0.233;
+      public static Double positionRemoveAlgaeHigh  = 0.1;
+
   }
 }
