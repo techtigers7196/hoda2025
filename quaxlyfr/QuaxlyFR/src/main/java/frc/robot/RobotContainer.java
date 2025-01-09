@@ -62,17 +62,6 @@ public class RobotContainer {
         m_arm
       )
     );
-
-    m_climb.setDefaultCommand(
-      Commands.run(
-        () -> {
-        m_operatorController.leftBumper().whileTrue(
-            m_climb.movePct(m_operatorController.getRightX())
-          );
-        },
-        m_climb
-      )
-    );
     
   }
 
@@ -98,6 +87,9 @@ public class RobotContainer {
     m_operatorController.leftTrigger().whileTrue(m_arm.moveCoral(-1.0));
     m_operatorController.rightBumper().whileTrue(m_arm.moveAlgae(0.6));
     m_operatorController.rightTrigger().whileTrue(m_arm.moveAlgae(-0.5));
+
+    m_operatorController.povUp().whileTrue(m_climb.movePct(1.0));
+    m_operatorController.povDown().whileTrue(m_climb.movePct(-1.0));
   }
 
   /**

@@ -87,7 +87,7 @@ public final class Constants {
     // For safety, needs to work, implemented in subsystems' commands
     public static final double kPctLimit = 1.0;
 
-    public static final int kMotorCanId = 8;
+    public static final int kMotorCanId = 16;
   }
   
   public static class ControlSystem {

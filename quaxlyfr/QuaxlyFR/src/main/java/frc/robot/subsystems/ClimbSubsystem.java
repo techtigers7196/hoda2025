@@ -26,10 +26,10 @@ public class ClimbSubsystem extends SubsystemBase {
    * @return
    */
   public Command movePct(double power) {
-    return runEnd(
+    return startEnd(
       () -> {
-        double output_power = UqUtil.clamp(power, LiftConstants.kPctLimit);
-        m_motor.set(output_power);
+        // double output_power = UqUtil.clamp(power, LiftConstants.kPctLimit);
+        m_motor.set(power);
       },
 
       () -> {
