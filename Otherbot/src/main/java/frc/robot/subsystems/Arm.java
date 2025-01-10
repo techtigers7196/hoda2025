@@ -3,17 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import frc.robot.Constants.OperatorConstants;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.util.function.FloatSupplier;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import java.io.PrintWriter;
-
-import javax.naming.spi.DirStateFactory.Result;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.*;
@@ -51,14 +47,7 @@ public class Arm extends SubsystemBase {
       PersistMode.kPersistParameters);
 
     encoder = new DutyCycleEncoder(0);
-    armP = new PIDController(17.5, 0, 0.8);
-
-    // Set arm limit / position range
-    armFrontLimit = 0.422;
-    armRearLimit = 0.05;
-
-    // Set velocity % limit
-    armVelocityLimit = 0.80;
+    armP = new PIDController(OperatorConstants.armkP, OperatorConstants.armkI, OperatorConstants.armkD);
 
   }
 
@@ -66,50 +55,17 @@ public class Arm extends SubsystemBase {
   public Command moveArmToPosition(Double position) {
     return run(
         () -> {
-          Double currentPos = encoder.get();
-
-          Double target = position;
-
-          if (target > armFrontLimit) { 
-            target = armFrontLimit; 
-          }
-
-          if (target < armRearLimit) { 
-            target = armRearLimit; 
-          }
-
-          Double result = armP.calculate(encoder.get(), target);
           
-          if (result < -1 * armVelocityLimit) {
-            result = -1 * armVelocityLimit;
-          }
+          // Get the target position, clamped to (limited between) the lowest and highest arm positions
+          Double target = MathUtil.clamp(position, OperatorConstants.armRearLimit, OperatorConstants.armFrontLimit);
 
-          if (result > armVelocityLimit) {
-            result = armVelocityLimit;
-          }
-
-          
-          System.out.printf("%f %f %f \n", target, currentPos, result);
+          // Calculate the PID result, and clamp to the arm's maximum velocity limit.
+          Double result =  MathUtil.clamp(armP.calculate(encoder.get(), target), -1 * OperatorConstants.armVelocityLimit, OperatorConstants.armVelocityLimit);
 
           armMotor1.set(result);
 
         });
   }
-
-  // public Command moveArm(Double factor) {
-  //   // Inline construction of command goes here.
-  //   return run(
-  //       () -> {
-          
-  //         Double curr = encoder.get();
-
-  //         Double targ = curr + factor;
-
-  //         moveArmToPosition(targ);
-
-          
-  //       });
-  // }
 
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).

@@ -4,15 +4,12 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.util.function.FloatSupplier;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import java.io.PrintWriter;
 import java.util.function.DoubleSupplier;
 
 import com.revrobotics.spark.SparkMax;
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.revrobotics.spark.SparkBase.*;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -71,6 +68,22 @@ public class DriveTrain extends SubsystemBase {
           leftFront.set(left.getAsDouble());
           rightFront.set(right.getAsDouble());
         });
+  }
+
+  public Command moveStraight(Double velocity) {
+    return run(
+      () -> {
+        leftFront.set(velocity);
+        rightFront.set(velocity);
+      });
+  }
+
+  public Command turn(Double velocity) {
+    return run(
+      () -> {
+        leftFront.set(velocity);
+        rightFront.set(-1 * velocity);
+      });
   }
 
   /**

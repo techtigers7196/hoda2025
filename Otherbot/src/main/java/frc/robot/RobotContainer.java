@@ -6,7 +6,6 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -22,21 +21,12 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_drive = new DriveTrain();
   private final Arm m_arm = new Arm();
-  // private final AlgaePole m_algaepole = new AlgaePole();
   private final Intake m_intake = new Intake();
   private final Climber m_climber = new Climber();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
-
-  // Define Arm Position Constants
-  Double positionIntakeCoral      = 0.422;
-  Double positionClimbEnd         = 0.368;
-  Double positionIntakeAlgae      = 0.348;
-  Double positionRemoveAlgaeLow   = 0.3083;
-  Double positionClimbStart       = 0.233;
-  Double positionRemoveAlgaeHigh  = 0.1;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -54,14 +44,6 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    // new Trigger(m_exampleSubsystem::exampleCondition)
-    //     .onTrue(new ExampleCommand(m_exampleSubsystem));
-
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-
 
     // *** Drive bindings ***
     // Default behaviour (follow Y-axes of joysticks to implement tank drive)
@@ -69,76 +51,60 @@ public class RobotContainer {
     
 
     // *** Arm bindings ***
-    // Default behaviour (keep position)
-    // m_arm.setDefaultCommand(m_arm.moveArmToPosition(positionIntakeCoral));
 
     // Move to intake coral with Y
     m_driverController.y()
-      .onTrue(m_arm.moveArmToPosition(positionIntakeCoral));
+      .onTrue(m_arm.moveArmToPosition(Constants.OperatorConstants.positionIntakeCoral));
 
     // Move to intake algae with X
     m_driverController.x()
-      .onTrue(m_arm.moveArmToPosition(positionIntakeAlgae));
+      .onTrue(m_arm.moveArmToPosition(Constants.OperatorConstants.positionIntakeAlgae));
 
     // Move to remove low-reef algae and dump L1 coral with B
     m_driverController.b()
-      .onTrue(m_arm.moveArmToPosition(positionRemoveAlgaeLow));
+      .onTrue(m_arm.moveArmToPosition(Constants.OperatorConstants.positionRemoveAlgaeLow));
 
     // Move to remove high-reef algae with A
     m_driverController.a()
-      .onTrue(m_arm.moveArmToPosition(positionRemoveAlgaeHigh));
+      .onTrue(m_arm.moveArmToPosition(Constants.OperatorConstants.positionRemoveAlgaeHigh));
 
     // Move to start climb with D-Pad Down
     m_driverController.povDown()
-      .onTrue(m_arm.moveArmToPosition(positionClimbStart));
+      .onTrue(m_arm.moveArmToPosition(Constants.OperatorConstants.positionClimbStart));
 
     // Move to finish climb with D-Pad up
     m_driverController.povUp()
-      .onTrue(m_arm.moveArmToPosition(positionClimbEnd));
+      .onTrue(m_arm.moveArmToPosition(Constants.OperatorConstants.positionClimbEnd));
 
-
-    // // *** Algae Pole bindings ***
-
-    // // Default behaviour (do nothing)
-    // m_algaepole.setDefaultCommand(m_algaepole.moveAlgaePole(0.0));
-
-    // // Raise algae pole with D-pad up 
-    // m_driverController.povUp()
-    //   .and(m_driverController.povDown().negate())
-    //   .onTrue(m_algaepole.moveAlgaePole(15.0));
-
-    // // Lower algae pole with D-pad down 
-    // m_driverController.povDown()
-    // .and(m_driverController.povUp().negate())
-    // .onTrue(m_algaepole.moveAlgaePole(-15.0));
-
+    
     // *** Intake bindings ***
-     // Default behaviour (do nothing)
-     m_intake.setDefaultCommand(m_intake.moveIntake(0.0));
+    // Default behaviour (do nothing)
+    m_intake.setDefaultCommand(m_intake.moveIntake(0.0));
 
-     // Run intake with A button
-     m_driverController.rightBumper()
+    // Run intake with right bumper button
+    m_driverController.rightBumper()
       .and(m_driverController.rightTrigger().negate())
       .whileTrue(m_intake.moveIntake(0.75));
- 
-     // Run intake in reverse with B button
-     m_driverController.rightTrigger()
+
+    // Run intake in reverse with right trigger button
+    m_driverController.rightTrigger()
       .and(m_driverController.rightBumper().negate()) 
       .whileTrue(m_intake.moveIntake(-0.75));
 
-     // *** Climber bindings ***
-     // Default behaviour (do nothing)
-      m_climber.setDefaultCommand(m_climber.moveClimber(0.0));
 
-      // Disengage climber with back button
-      m_driverController.leftBumper()
-        .and(m_driverController.leftTrigger().negate())
-        .whileTrue(m_climber.moveClimber(0.5));
+    // *** Climber bindings ***
+    // Default behaviour (do nothing)
+    m_climber.setDefaultCommand(m_climber.moveClimber(0.0));
 
-      // Engage climber with start buttom
-      m_driverController.leftTrigger()
-        .and(m_driverController.leftBumper().negate())
-        .whileTrue(m_climber.moveClimber(-0.5));
+    // Disengage climber with back button
+    m_driverController.leftBumper()
+      .and(m_driverController.leftTrigger().negate())
+      .whileTrue(m_climber.moveClimber(0.5));
+
+    // Engage climber with start buttom
+    m_driverController.leftTrigger()
+      .and(m_driverController.leftBumper().negate())
+      .whileTrue(m_climber.moveClimber(-0.5));
 
   }
 
@@ -148,7 +114,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
     return Autos.autoSideLeft(m_drive, m_arm, m_intake);
   }
 }
