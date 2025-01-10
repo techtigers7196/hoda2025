@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.commands.Autos;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -54,27 +55,27 @@ public class RobotContainer {
 
     // Move to intake coral with Y
     m_driverController.y()
-      .onTrue(m_arm.moveArmToPosition(Constants.OperatorConstants.positionIntakeCoral));
+      .onTrue(m_arm.moveArmToPosition(ArmConstants.positionIntakeCoral));
 
     // Move to intake algae with X
     m_driverController.x()
-      .onTrue(m_arm.moveArmToPosition(Constants.OperatorConstants.positionIntakeAlgae));
+      .onTrue(m_arm.moveArmToPosition(ArmConstants.positionIntakeAlgae));
 
     // Move to remove low-reef algae and dump L1 coral with B
     m_driverController.b()
-      .onTrue(m_arm.moveArmToPosition(Constants.OperatorConstants.positionRemoveAlgaeLow));
+      .onTrue(m_arm.moveArmToPosition(ArmConstants.positionRemoveAlgaeLow));
 
     // Move to remove high-reef algae with A
     m_driverController.a()
-      .onTrue(m_arm.moveArmToPosition(Constants.OperatorConstants.positionRemoveAlgaeHigh));
+      .onTrue(m_arm.moveArmToPosition(ArmConstants.positionRemoveAlgaeHigh));
 
     // Move to start climb with D-Pad Down
     m_driverController.povDown()
-      .onTrue(m_arm.moveArmToPosition(Constants.OperatorConstants.positionClimbStart));
+      .onTrue(m_arm.moveArmToPosition(ArmConstants.positionClimbStart));
 
     // Move to finish climb with D-Pad up
     m_driverController.povUp()
-      .onTrue(m_arm.moveArmToPosition(Constants.OperatorConstants.positionClimbEnd));
+      .onTrue(m_arm.moveArmToPosition(ArmConstants.positionClimbEnd));
 
     
     // *** Intake bindings ***

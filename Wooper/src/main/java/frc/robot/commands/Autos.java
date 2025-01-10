@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
@@ -31,7 +31,7 @@ public final class Autos {
     andThen(intake.moveIntake(-1.0).withTimeout(3.0).alongWith(drive.moveStraight(0.1).withTimeout(3))).
 
     // Do all of the above while maintaining arm position at the 'remove low algae' position
-    alongWith(arm.moveArmToPosition(Constants.OperatorConstants.positionRemoveAlgaeLow)).repeatedly();
+    alongWith(arm.moveArmToPosition(ArmConstants.positionRemoveAlgaeLow)).repeatedly();
   }
 
   private Autos() {

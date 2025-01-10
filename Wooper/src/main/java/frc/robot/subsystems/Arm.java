@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.ArmConstants;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
@@ -47,7 +47,7 @@ public class Arm extends SubsystemBase {
       PersistMode.kPersistParameters);
 
     encoder = new DutyCycleEncoder(0);
-    armP = new PIDController(OperatorConstants.armkP, OperatorConstants.armkI, OperatorConstants.armkD);
+    armP = new PIDController(ArmConstants.armkP, ArmConstants.armkI, ArmConstants.armkD);
 
   }
 
@@ -57,10 +57,10 @@ public class Arm extends SubsystemBase {
         () -> {
           
           // Get the target position, clamped to (limited between) the lowest and highest arm positions
-          Double target = MathUtil.clamp(position, OperatorConstants.armRearLimit, OperatorConstants.armFrontLimit);
+          Double target = MathUtil.clamp(position, ArmConstants.armRearLimit, ArmConstants.armFrontLimit);
 
           // Calculate the PID result, and clamp to the arm's maximum velocity limit.
-          Double result =  MathUtil.clamp(armP.calculate(encoder.get(), target), -1 * OperatorConstants.armVelocityLimit, OperatorConstants.armVelocityLimit);
+          Double result =  MathUtil.clamp(armP.calculate(encoder.get(), target), -1 * ArmConstants.armVelocityLimit, ArmConstants.armVelocityLimit);
 
           armMotor1.set(result);
 
