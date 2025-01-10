@@ -8,6 +8,8 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LiftSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.CoralSubsystem;
+import frc.robot.subsystems.AlgaeSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,6 +21,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_drive = new DriveSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
+  private final CoralSubsystem m_coral = new CoralSubsystem();
+  private final AlgaeSubsystem m_algae = new AlgaeSubsystem();
   private final LiftSubsystem m_lift = new LiftSubsystem();
   private final ClimbSubsystem m_climb = new ClimbSubsystem();
 
@@ -83,10 +87,10 @@ public class RobotContainer {
     // m_driverController.leftStick().toggleOnTrue(m_drive.toggleForwardDirection());
     // TODO reverse intake / outtake depending on drive direction
     
-    m_operatorController.leftBumper().whileTrue(m_arm.moveCoral(1.0));
-    m_operatorController.leftTrigger().whileTrue(m_arm.moveCoral(-1.0));
-    m_operatorController.rightBumper().whileTrue(m_arm.moveAlgae(0.6));
-    m_operatorController.rightTrigger().whileTrue(m_arm.moveAlgae(-0.5));
+    m_operatorController.leftBumper().whileTrue(m_coral.moveCoral(1.0));
+    m_operatorController.leftTrigger().whileTrue(m_coral.moveCoral(-1.0));
+    m_operatorController.rightBumper().whileTrue(m_algae.moveAlgae(0.6));
+    m_operatorController.rightTrigger().whileTrue(m_algae.moveAlgae(-0.5));
 
     m_operatorController.povUp().whileTrue(m_climb.movePct(1.0));
     m_operatorController.povDown().whileTrue(m_climb.movePct(-1.0));

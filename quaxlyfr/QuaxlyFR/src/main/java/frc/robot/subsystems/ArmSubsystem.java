@@ -8,7 +8,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import com.ctre.phoenix6.hardware.CANcoder;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -64,38 +63,6 @@ public class ArmSubsystem extends SubsystemBase {
     // double output_power = UqUtil.clamp(power, ArmConstants.kPctLimit);
     double output_power = power;
     m_arm_a.set(ControlMode.PercentOutput, output_power);
-  }
-
-  /**
-   * @param power + in; - out
-   * @return
-   */
-  public Command moveAlgae(double power) {
-    return startEnd(
-      () -> {
-        m_algae.set(ControlMode.PercentOutput, power);
-      },
-
-      () -> {
-        m_algae.set(ControlMode.PercentOutput, 0.0);
-      }
-    );
-  }
-
-  /**
-   * @param power (+) front-to-back; (-) back-to-front
-   * @return
-   */
-  public Command moveCoral(double power) {
-    return startEnd(
-      () -> {
-        m_coral.set(ControlMode.PercentOutput, power);
-      },
-
-      () -> {
-        m_coral.set(ControlMode.PercentOutput, 0.0);
-      }
-    );
   }
 
   /**
