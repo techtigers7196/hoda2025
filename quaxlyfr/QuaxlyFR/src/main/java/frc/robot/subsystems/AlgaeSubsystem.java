@@ -42,7 +42,7 @@ public class AlgaeSubsystem extends SubsystemBase {
       },
 
       () -> {
-        m_algae.set(ControlMode.PercentOutput, 0.0);
+        m_algae.set(ControlMode.PercentOutput, 0.1);
       }
     );
   }
