@@ -1,6 +1,6 @@
 # Codebase for Unqualified Quokka's 2025 Ri3D low-cycle bot, **Wooper**.
 
-## Control bindings (XBox controller only)
+## Control bindings (Xbox controller only)
 
 **JOYSTICKS**: Tank Drive
 
@@ -22,7 +22,7 @@
 
 **LEFT BUMPER**: Expand climber hooks
 
-**LEFT TRIGGER**: Retracft climber hooks
+**LEFT TRIGGER**: Retract climber hooks
 
 ## Autonomous Routine
 The included autonomous routine in ``Autos.java`` is the one shown in [this video](https://youtu.be/Ko4ivOLlNY4?si=9yZfqv8GtGlm-5EI&t=94).
