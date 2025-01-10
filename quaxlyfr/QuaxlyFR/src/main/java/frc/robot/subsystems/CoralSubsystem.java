@@ -7,6 +7,9 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.reduxrobotics.canand.CanandSettings;
+import com.reduxrobotics.sensors.canandcolor.Canandcolor;
+import com.reduxrobotics.sensors.canandcolor.CanandcolorSettings;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,9 +18,17 @@ import frc.robot.Constants.ArmConstants;
 public class CoralSubsystem extends SubsystemBase {
 
   private final WPI_VictorSPX m_coral = new WPI_VictorSPX(ArmConstants.kCoralCanId);
+
+  private final Canandcolor m_clr1 = new Canandcolor(14);
+  private final Canandcolor m_clr2 = new Canandcolor(15);
   
   public CoralSubsystem() {
     m_coral.setNeutralMode(NeutralMode.Brake);
+
+    CanandcolorSettings clrSettings = new CanandcolorSettings();
+    clrSettings.setLampLEDBrightness(0.0);
+    m_clr1.setSettings(clrSettings);
+    m_clr2.setSettings(clrSettings);
   }
 
   /**
