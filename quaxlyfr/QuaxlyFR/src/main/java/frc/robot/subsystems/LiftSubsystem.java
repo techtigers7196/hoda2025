@@ -10,8 +10,15 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardComponent;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardContainer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LiftConstants;
@@ -21,7 +28,7 @@ import frc.robot.Constants.ControlSystem;
 public class LiftSubsystem extends SubsystemBase {
   private final WPI_VictorSPX m_lift_a = new WPI_VictorSPX(LiftConstants.kMotorCanId);
   // if you need a new motor just make it follow m_lift_a
-  private final DutyCycleEncoder m_enc = new DutyCycleEncoder(LiftConstants.kEncoderPwmPort);
+  private final Encoder m_enc = new Encoder(LiftConstants.kEncoderPortA, LiftConstants.kEncoderPortB);
   private double enc_pos;
 
   private final ProfiledPIDController m_ppid = new ProfiledPIDController(LiftConstants.Kp, LiftConstants.Ki, LiftConstants.Kd, 
@@ -33,6 +40,10 @@ public class LiftSubsystem extends SubsystemBase {
   public LiftSubsystem() {
     m_lift_a.setNeutralMode(NeutralMode.Brake);
     m_lift_a.setInverted(LiftConstants.kInverted);
+
+    m_enc.setDistancePerPulse(0.0004883);
+
+    SmartDashboard.setDefaultNumber("Lift Encoder", 0.0);
   }
 
   public Command goToPosition(double height) {
@@ -89,6 +100,7 @@ public class LiftSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     enc_pos = m_enc.get();
+    SmartDashboard.putNumber("Lift Encoder", enc_pos);
   }
 
   @Override

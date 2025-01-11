@@ -42,7 +42,9 @@ public final class Constants {
     public static final boolean kInverted = true;
 
     public static final int kMotorCanId = 7;
-    public static final int kEncoderPwmPort = 1;
+    public static final int kEncoderPortAbs = 9;
+    public static final int kEncoderPortA = 8;
+    public static final int kEncoderPortB = 7;
     public static final int kHallDownDioPort = 0;
 
     public static final double Kp = 0.0;  //FIXME

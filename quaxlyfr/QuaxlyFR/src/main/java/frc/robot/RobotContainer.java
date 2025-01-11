@@ -89,7 +89,7 @@ public class RobotContainer {
     
     m_operatorController.leftBumper().whileTrue(m_coral.moveCoral(1.0));
     m_operatorController.leftTrigger().whileTrue(m_coral.moveCoral(-1.0));
-    m_operatorController.rightBumper().whileTrue(m_algae.moveAlgae(0.6));
+    m_operatorController.rightBumper().whileTrue(m_algae.moveAlgae(0.75));
     m_operatorController.rightTrigger().whileTrue(m_algae.moveAlgae(-0.5));
 
     m_operatorController.povUp().whileTrue(m_climb.movePct(1.0));
