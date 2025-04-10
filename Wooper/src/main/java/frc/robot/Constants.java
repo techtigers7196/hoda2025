@@ -15,27 +15,38 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kSupportControllerPort = 1;
+  }
+
+  public static class DriveConstants {
+    public static Double forwardPower = 0.7;
+    public static Double turnPower = 0.7;
   }
 
   public static class ArmConstants {
       // Define Arm position constants
-      public static Double positionIntakeCoral      = 0.422;
-      public static Double positionClimbEnd         = 0.368;
-      public static Double positionIntakeAlgae      = 0.348;
-      public static Double positionRemoveAlgaeLow   = 0.3083;
-      public static Double positionClimbStart       = 0.233;
-      public static Double positionRemoveAlgaeHigh  = 0.1;
+      public static Double positionIntakeCoral      = 1.02;
+      public static Double positionClimbEnd         = 0.0;
+      public static Double positionScoreCoral      = 0.94;
+      public static Double positionRemoveAlgaeLow   = 0.91;
+      public static Double positionClimbStart       = 0.0;
+      public static Double positionRemoveAlgaeHigh  = 0.73;
+      public static Double positionHoldAlgae        = 0.97;
 
+      public static Double armPower = 0.6;
+      public static Double armPowerSlow =0.15;
       // Define Arm position limits
-      public static Double armFrontLimit            = 0.422;
-      public static Double armRearLimit             = 0.05;
+      public static Double armFrontLimit            = 1.02;
+      public static Double armRearLimit             = .72;
+      public static double armRearLimitMax          = .9;
 
       // Define Arm velocity limit
-      public static Double armVelocityLimit         = 0.8;
+      public static Double armVelocityLimit         = 0.6;
 
       // Define Arm PID constants
-      public static Double armkP                    = 17.5;
+      public static Double armkP                    = 5.0;
       public static Double armkI                    = 0.0;
-      public static Double armkD                    = 0.8;
+      public static Double armkD                    = 0.0;
+      public static double armff                    = 0.03; //0.03
   }
 }

@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DriveConstants;
 
 import java.util.function.DoubleSupplier;
 
@@ -14,7 +15,7 @@ import com.revrobotics.spark.SparkBase.*;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-
+ 
 public class DriveTrain extends SubsystemBase {
   SparkMax leftFront, leftRear, rightFront, rightRear;
   SparkMaxConfig leftFrontConfig, leftRearConfig, rightFrontConfig, rightRearConfig;
@@ -22,10 +23,10 @@ public class DriveTrain extends SubsystemBase {
 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
-    leftFront = new SparkMax(4, MotorType.kBrushless);
-    leftRear = new SparkMax(3, MotorType.kBrushless);
-    rightFront = new SparkMax(2, MotorType.kBrushless);
-    rightRear = new SparkMax(1, MotorType.kBrushless);
+    leftFront = new SparkMax(2, MotorType.kBrushless);
+    leftRear = new SparkMax(1, MotorType.kBrushless);
+    rightFront = new SparkMax(3, MotorType.kBrushless);
+    rightRear = new SparkMax(4, MotorType.kBrushless);
 
     leftFrontConfig = new SparkMaxConfig();
     leftRearConfig = new SparkMaxConfig();
@@ -40,7 +41,7 @@ public class DriveTrain extends SubsystemBase {
 
     leftRear.configure(leftRearConfig.
       idleMode(IdleMode.kBrake).
-      follow(4),
+      follow(2),
       ResetMode.kNoResetSafeParameters, 
       PersistMode.kPersistParameters);
 
@@ -52,7 +53,7 @@ public class DriveTrain extends SubsystemBase {
 
     rightRear.configure(rightRearConfig.
       idleMode(IdleMode.kBrake).
-      follow(2),
+      follow(3),
       ResetMode.kNoResetSafeParameters, 
       PersistMode.kPersistParameters);
 
@@ -65,9 +66,17 @@ public class DriveTrain extends SubsystemBase {
     return run(
         () -> {
           
-          leftFront.set(left.getAsDouble());
-          rightFront.set(right.getAsDouble());
+          leftFront.set(0.5*left.getAsDouble());
+          rightFront.set(0.5*right.getAsDouble());
         });
+  }
+
+  public Command driveArcade(DoubleSupplier turn, DoubleSupplier forward)
+  {
+    return run(() -> {
+      leftFront.set(DriveConstants.forwardPower*forward.getAsDouble() - DriveConstants.turnPower*turn.getAsDouble());
+      rightFront.set(DriveConstants.forwardPower*forward.getAsDouble() + DriveConstants.turnPower*turn.getAsDouble());
+    });
   }
 
   public Command moveStraight(Double velocity) {

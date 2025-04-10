@@ -14,13 +14,13 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 
-public class Intake extends SubsystemBase {
+public class Intake2 extends SubsystemBase {
   SparkMax intakeMotor1, intakeMotor2;
   SparkMaxConfig intakeMotor1Config, intakeMotor2Config;
 
 
   /** Creates a new Intake. */
-  public Intake() {
+  public Intake2() {
     intakeMotor1 = new SparkMax(5, MotorType.kBrushed);
     intakeMotor2 = new SparkMax(6, MotorType.kBrushed);
 
@@ -35,8 +35,7 @@ public class Intake extends SubsystemBase {
       PersistMode.kPersistParameters);
 
     intakeMotor2.configure(intakeMotor2Config.
-      idleMode(IdleMode.kBrake).
-      follow(5), 
+      idleMode(IdleMode.kBrake), 
       ResetMode.kNoResetSafeParameters, 
       PersistMode.kPersistParameters);
 
@@ -49,8 +48,19 @@ public class Intake extends SubsystemBase {
         () -> {
           
           intakeMotor1.set(velocity);
+          intakeMotor2.set(velocity);
         });
   }
+
+  public Command shootAlgae(Double velocity) {
+    // Inline construction of command goes here.
+    return run(
+        () -> {
+          
+          intakeMotor1.set(velocity);
+          intakeMotor2.set(velocity);
+        });
+  }  
 
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).

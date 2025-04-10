@@ -33,6 +33,37 @@ public final class Autos {
     // Do all of the above while maintaining arm position at the 'remove low algae' position
     alongWith(arm.moveArmToPosition(ArmConstants.positionRemoveAlgaeLow)).repeatedly();
   }
+  public static Command autoFoward(DriveTrain driveTrain) {
+    return driveTrain.moveStraight(-.2);
+  }
+
+public static Command autoCoral1(DriveTrain driveTrain, Arm arm, Intake intake){
+  return arm.moveArmToPosition(ArmConstants.positionRemoveAlgaeHigh).withTimeout(1.0).
+  andThen(arm.moveArmToPosition(ArmConstants.positionScoreCoral).withTimeout(2.0)).
+  andThen(driveTrain.moveStraight(-.2).withTimeout(3.0)).
+  andThen(intake.moveIntake(-1.0).withTimeout(3.0)).
+  andThen(arm.moveArmToPosition(ArmConstants.positionRemoveAlgaeLow).withTimeout(1.0)).
+  andThen(intake.moveIntake(-1.0).withTimeout(3.0)).
+  andThen(intake.moveIntake(-0.0).withTimeout(1.0));
+}
+
+public static Command autoDrive1(DriveTrain driveTrain, Arm arm, Intake intake){
+  return arm.moveArmToPosition(ArmConstants.positionRemoveAlgaeHigh).withTimeout(1.0).
+  andThen(arm.moveArmToPosition(ArmConstants.positionRemoveAlgaeLow).withTimeout(4.0)).
+  andThen(driveTrain.moveStraight(-.2).withTimeout(5.0));
+}
+
+public static Command autoCoral2(DriveTrain driveTrain, Arm arm, Intake intake){
+  return arm.moveArmToPosition(ArmConstants.positionRemoveAlgaeHigh).withTimeout(1.0).
+  andThen(arm.moveArmToPosition(ArmConstants.positionScoreCoral).withTimeout(1.5)).
+  andThen(driveTrain.moveStraight(-.2).withTimeout(2.5)).
+  andThen(intake.moveIntake(-1.0).withTimeout(3.0)).
+  andThen(arm.moveArmToPosition(ArmConstants.positionRemoveAlgaeLow).withTimeout(1.0)).
+  andThen(intake.moveIntake(-1.0).withTimeout(3.0)).
+  andThen(intake.moveIntake(-0.0).withTimeout(1.0)).
+  andThen(driveTrain.moveStraight(.2).withTimeout(2.0));
+}
+
 
   private Autos() {
     throw new UnsupportedOperationException("This is a utility class!");
